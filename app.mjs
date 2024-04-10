@@ -31,6 +31,7 @@ app.get("/main", (req, res) => {
 
 
 app.listen(process.env.PORT || 3000, () => {
+    console.log(process.env.PORT);
     console.log("The server is running");
     console.log("Press control+c to stop");
 });
