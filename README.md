@@ -71,14 +71,13 @@ An Example Topic with Embedded options:
 
 1. as non-registered user, I can register a new account with the site
 2. as a user, I can log in to the site
-3. as a user, I will redirect to different pages according to my account type
-4. as a student, I can choose the course I need tutoring
-5. as a tutor, I can see the information of my current session
-6. as a tutor, I can finish the session when it is done
-7. as a IA, I can see information of all tutors that is on shift
-8. as a IA, I can see information of all sessions that is on going
-9. as a IA, I can see information of all students that is in the waitlist
-10. as a IA, I can assign student in the waitlist to the currectly available tutor
+3. as a user, I can go to main page to view my information
+4. as a user, I can see all the topics that I created
+5. as a user, I can see all the topics that I participated
+6. as a user, I can go to topics page to see all the topics
+7. as a user, I can choose any topics that I am interested in and see its details
+8. as a user, I can see all the options in the specific topic
+9. as a user, I can make my vote in the topic
 
 ## Research Topics
 
