@@ -2,34 +2,25 @@ import mongoose, { Mongoose } from "mongoose";
 
 mongoose.connect(process.env.DSN);
 
-const TutorSchema = new mongoose.Schema({
-    name: String,
-    password: String,
-    type: String,
-    courses: [{type: mongoose.Types.ObjectId, ref: 'Course'}],
+const UserSchema = new mongoose.Schema({
+  name: String,
+  password: String,
+  created: [{ type: mongoose.Types.ObjectId, ref: "Topic" }],
+  participated: [{ type: mongoose.Types.ObjectId, ref: "Topic" }],
 });
 
-const StudentSchema = new mongoose.Schema({
-    netId: String,
-    name: String,
-    password: String,
+const TopicSchema = new mongoose.Schema({
+  topic: String,
+  owner: { type: mongoose.Types.ObjectId, ref: "User" },
+  createdAt: { type: Date, required: true },
+  options: [Option],
 });
 
-const SessionSchema = new mongoose.Schema({
-    student: [{type: mongoose.Types.ObjectId, ref: 'Student'}],
-    tutor: [{type: mongoose.Types.ObjectId, ref: 'Tutor'}],
-    courses: [{type: mongoose.Types.ObjectId, ref: 'Course'}],
-    startTime: Date,
+const OptionSchema = new mongoose.Schema({
+  answer: String,
+  voter: [{ type: mongoose.Types.ObjectId, ref: "User" }],
 });
 
-const CourseSchema = new mongoose.Schema({
-    id: String,
-    name: String,
-    location: String,
-    instructor: String
-});
-
-export const Tutor = mongoose.model('Tutor', TutorSchema);
-export const Student = mongoose.model('Student', StudentSchema);
-export const Session = mongoose.model('Session', SessionSchema);
-export const Course = mongoose.model('Course', CourseSchema);
+export const User = mongoose.model("Tutor", UserSchema);
+export const Topic = mongoose.model("Topic", TopicSchema);
+export const Option = mongoose.model("Option", OptionSchema);

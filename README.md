@@ -1,66 +1,47 @@
-# ULC Learning Center Sign Up System
+# Make a Vote
 
 ## Overview
 
-The system will consists of mainly three parts. First part for users to sign up for tutoring of specific course. If there is available tutor, then information will be sent to tutors; otherwise, it will be added into a waitlist.
+The whole website mainly provide two functions for registered users. The first function is for users to create specific topics for votings. They can choose whether letting users to crate voting options or they can set different options in advance to let users choose.
 
-Tutors can get information of the current students, and manually ending the meeting with filling some information in the end. There is also a system for IA, who can keep track of all the tutors who are currently on shift, and see information of students in the waitlist, and manage their sessions.
+All the topics will show up in the main pages. Users can look through different topics, and enter specific voting topics add options if allowed and make their vote.
 
 ## Data Model
 
-The application will store Tutors, Sessions, Courses and Students
+The application will store Users, Topics, Options
 
-- Tutors can have multiple Courses (via references)
-- Sessions will contain information of Students and Tutors (via references)
+- Topics can have multiple Options (by embedding)
+- Topics can have one creator (which is a User) (via references)
+- Users can have multiple Topics (there can be two type of Topics, topics they created and topics they attended) (via references)
 
-An Example Tutor:
+An Example User:
 
 ```javascript
 {
   name: "Helios Hu",
   hash: // a password hash,
-  lists: // an array of references to Courses documents
-  type: "Tutor" // another is IA
+  created: // an array of reference to Topics created by the User
+  participated: // an array of references to Topics that the User participated in
 }
 ```
 
-An Example Student:
+An Example Topic with Embedded options:
 
 ```javascript
 {
-  netId: "xh2376",
-  name: "Helios Hu",
-  hash: // a password hash
-}
-```
-
-An Example Session :
-
-```javascript
-{
-  student: // a reference to a Student object
-  tutor: // a reference to a Tutor object,
-  courses: // a reference to a Course object,
-  startTime: 3/14/2024,
-}
-```
-
-An Example Course :
-
-```javascript
-{
-  id: "CSCI-101"
-  name: "Intro to Computer Science"
-  location: "CIWW 102"
-  Instructor: "Versoza "
+  topic: "How old are you?",
+  owner: // a reference to the User who create this Topic
+  createdAt: // time stamp
+  options:[
+    {answer: "19", voter: /* an array of reference to Users who chose this option*/},
+    {answer: "20", voter: /* an array of reference to Users who chose this option*/}
+  ]
 }
 ```
 
 ## [Link to Commented First Draft Schema](db.mjs)
 
 ## Wireframes
-
-(**TODO**: wireframes for all of the pages on your site; they can be as simple as photos of drawings or you can use a tool like Balsamiq, Omnigraffle, etc.)
 
 /login - page for users to login
 
@@ -70,17 +51,17 @@ An Example Course :
 
 ![sign-up](documentation/sign-up.png)
 
-/tutor - page for tutors seeing information of current student who needs tutoring
+/topics - page for displaying all the topics
 
-![tutor](documentation/tutor.png)
+![topics](documentation/topics.png)
 
-/session - page for IAs seeing all the sessions and manage them
+/details - page for users to view options and make their vote
 
-![session](documentation/session.png)
+![details](documentation/details.png)
 
-/tutor-info - page for IAs seeing all the tutors that is on shift
+/main - page for users to view topics that they created and they participated
 
-![tutor-info](documentation/tutor-info.png)
+![main](documentation/main.png)
 
 ## Site map
 
@@ -101,8 +82,6 @@ An Example Course :
 
 ## Research Topics
 
-(**TODO**: the research topics that you're planning on working on along with their point values... and the total points of research topics listed)
-
 - (4 points) Integrate user authentication
   - I'm going to be using passport for user authentication
   - Redirect different users to different web pages
@@ -113,10 +92,10 @@ An Example Course :
   - use Bootstrap to design a theme for the whole system
   - Bootstrap is much more beautiful than CSS written by me
 
-## [Link to Initial Main Project File](app.mjs)
+12 points total
 
-(**TODO**: create a skeleton Express application with a package.json, app.mjs, views folder, etc. ... and link to your initial app.mjs)
+## [Link to Initial Main Project File](app.mjs)
 
 ## Annotations / References Used
 
-1. I admit I have done all the mile stone by my self.
+I admit I have done all the mile stone by my self.
