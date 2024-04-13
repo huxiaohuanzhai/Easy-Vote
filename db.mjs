@@ -17,7 +17,7 @@ const OptionSchema = new mongoose.Schema({
 const TopicSchema = new mongoose.Schema({
   topic: String,
   owner: { type: mongoose.Types.ObjectId, ref: "User" },
-  createdAt: { type: Date, required: true },
+  createdAt: String,
   options: [OptionSchema]
 });
 

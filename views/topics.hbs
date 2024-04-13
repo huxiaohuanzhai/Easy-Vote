@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-6 text-center mt-5">
+            <h1>Welcome, here are all topics!</h1>
+        </div>
+        <div class="col"></div>
+    </div>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-6">
+            <form action="/topics" method="post">
+                <div class="mb-3">
+                    <label for="inputTopic" class="form-label">Topic</label>
+                    <input type="text" name="topic" class="form-control" id="inputTopic">
+                </div>
+                <button type="submit" class="btn btn-primary">Create</button>
+            </form>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+{{#each topics}}
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">{{topic}}</h5>
+        <h5 class="card-title">Created At: {{createdAt}}</h5>
+    </div>
+</div>
+{{/each}}
