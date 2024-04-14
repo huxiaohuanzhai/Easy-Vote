@@ -28,7 +28,7 @@ function getDate() {
 }
 
 const loginMessages = { "PASSWORDS DO NOT MATCH": 'Incorrect password', "USER NOT FOUND": 'User doesn\'t exist' };
-const registrationMessages = { "USERNAME ALREADY EXISTS": "Username already exists", "USERNAME PASSWORD TOO SHORT": "Username or password is too short" };
+const registrationMessages = { "USERNAME ALREADY EXISTS": "Username already exists", "PASSWORD TOO SHORT": "Username or password is too short" };
 
 app.get('/', (req, res) => {
     res.redirect("/login");
