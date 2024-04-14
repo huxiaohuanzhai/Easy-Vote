@@ -16,6 +16,30 @@ app.use(express.urlencoded({ extended: false }))
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use(express.static(__dirname));
+app.use(session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: true,
+}));
+
+const authFreePaths = ['/login', '/sign-up'];
+
+app.use((req, res, next) => {
+    if (!authFreePaths.includes(req.path)) {
+        if (!req.session.user) {
+            res.redirect('/login');
+        } else {
+            next();
+        }
+    } else {
+        next();
+    }
+});
+
+app.use((req, res, next) => {
+    res.locals.user = req.session.user;
+    next();
+});
 
 function getDate() {
     let temp = new Date();
@@ -28,7 +52,7 @@ function getDate() {
 }
 
 const loginMessages = { "PASSWORDS DO NOT MATCH": 'Incorrect password', "USER NOT FOUND": 'User doesn\'t exist' };
-const registrationMessages = { "USERNAME ALREADY EXISTS": "Username already exists", "PASSWORD TOO SHORT": "Username or password is too short" };
+const registrationMessages = { "USERNAME ALREADY EXISTS": "Username already exists", "PASSWORD TOO SHORT": "Password should more then 8 characters" };
 
 app.get('/', (req, res) => {
     res.redirect("/login");
@@ -44,6 +68,7 @@ app.post("/login", async (req, res) => {
             sanitize(req.body.name),
             req.body.password
         );
+        await auth.startAuthenticatedSession(req, user);
         res.redirect('/topics');
     } catch (err) {
         console.log(err)
@@ -57,13 +82,12 @@ app.get("/sign-up", (req, res) => {
 
 app.post("/sign-up", async (req, res) => {
     try {
-        console.log(req.body);
         const newUser = await auth.register(
             sanitize(req.body.name),
             req.body.password
         );
-        console.log(newUser);
-        res.redirect('/');
+        await auth.startAuthenticatedSession(req, newUser);
+        res.redirect('/topics');
     } catch (err) {
         console.log(err);
         res.render('sign-up', { message: registrationMessages[err.message] ?? 'Registration error' });
