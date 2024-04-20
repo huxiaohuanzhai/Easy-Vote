@@ -1,4 +1,5 @@
 import mongoose, { Mongoose } from "mongoose";
+import mongooseSlugPlugin from 'mongoose-slug-plugin';
 
 mongoose.connect(process.env.DSN);
 
@@ -15,12 +16,14 @@ const OptionSchema = new mongoose.Schema({
 });
 
 const TopicSchema = new mongoose.Schema({
-  topic: String,
+  topic: { type: String, required: true },
   owner: { type: mongoose.Types.ObjectId, ref: "User" },
   createdAt: String,
   options: [OptionSchema]
 });
 
+UserSchema.plugin(mongooseSlugPlugin, { tmpl: '<%=name%>' });
+TopicSchema.plugin(mongooseSlugPlugin, { tmpl: '<%=topic%>' });
 
 export const Option = mongoose.model("Option", OptionSchema);
 export const User = mongoose.model("User", UserSchema);

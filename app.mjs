@@ -9,6 +9,7 @@ import * as auth from './auth.mjs';
 
 const User = mongoose.model("User");
 const Topic = mongoose.model("Topic");
+const Option = mongoose.model("Option");
 
 const app = express();
 app.set('view engine', 'hbs');
@@ -96,16 +97,27 @@ app.post("/sign-up", async (req, res) => {
 
 app.get("/topics", async (req, res) => {
     const topics = await Topic.find({});
-    res.render("topics", { topics: topics });
+    res.render("topics", { topics: topics, user: req.session.user });
 });
 
 app.post("/topics", async (req, res) => {
     const newTopic = new Topic({ topic: req.body.topic, createdAt: getDate() });
     await newTopic.save();
-    console.log(newTopic);
     res.redirect("/topics");
 });
 
+app.get('/topics/:slug', async (req, res) => {
+    const topic = await Topic.findOne({ slug: req.params.slug });
+    res.render('topics-detail', { topic });
+});
+
+app.post('/topics/:slug', async (req, res) => {
+    const newOption = new Option({answer: req.body.option});
+    const topic = await Topic.findOne({ slug: req.params.slug });
+    topic.options.push(newOption);
+    await topic.save();
+    res.redirect("/topics/" + req.params.slug);
+});
 
 app.listen(process.env.PORT || 3000, () => {
     console.log(process.env.PORT);

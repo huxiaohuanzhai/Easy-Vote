@@ -2,7 +2,8 @@
     <div class="row">
         <div class="col"></div>
         <div class="col-6 text-center mt-5">
-            <h1>Welcome, here are all topics!</h1>
+            <h1>Welcome {{user.name}}!</h1>
+            <h1>Here are all topics!</h1>
         </div>
         <div class="col"></div>
     </div>
@@ -19,12 +20,19 @@
         </div>
         <div class="col"></div>
     </div>
-</div>
-{{#each topics}}
-<div class="card" style="width: 18rem;">
-    <div class="card-body">
-        <h5 class="card-title">{{topic}}</h5>
-        <h5 class="card-title">Created At: {{createdAt}}</h5>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-6 text-center mt-5">
+            {{#each topics}}
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{topic}}</h5>
+                    <h5 class="card-title">Created At: {{createdAt}}</h5>
+                    <a href="/topics/{{slug}}" class="btn btn-primary">Details</a>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        <div class="col"></div>
     </div>
 </div>
-{{/each}}
