@@ -1,0 +1,40 @@
+{{#if message}}
+  <div class="error">{{message}}</div>
+{{/if}}
+<div class="container">
+  <div class="row">
+    <div class="col"></div>
+    <div class="col-6 text-center mt-5">
+      <h1>Welcome!</h1>
+    </div>
+    <div class="col"></div>
+  </div>
+  <div class="row">
+    <div class="col"></div>
+    <div class="col-6">
+      <form action="/login" method="post">
+        <div class="mb-3">
+          <label for="inputAccount" class="form-label">Account</label>
+          <input
+            type="text"
+            name="name"
+            class="form-control"
+            id="inputAccount"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="inputPassword" class="form-label">Password</label>
+          <input
+            type="password"
+            name="password"
+            class="form-control"
+            id="inputPassword"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+        <a href="/sign-up" class="btn btn-primary">Create Account</a>
+      </form>
+    </div>
+    <div class="col"></div>
+  </div>
+</div>
